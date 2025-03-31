@@ -1,9 +1,23 @@
 {
-  "name": "errormessageoracle",
+  "name": "erroracle",
   "version": "1.0.0",
   "main": "main.js",
+  "build": {
+    "appId": "com.error.oracle",
+    "productName": "errOracle",
+    "files": [
+      "**/*"
+    ],
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
   "scripts": {
     "start": "electron .",
+    "dist": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

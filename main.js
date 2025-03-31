@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const { askTheOrcale } = require('./oracle');
 
 function createWindow () {
     const win = new BrowserWindow({
@@ -12,6 +13,11 @@ function createWindow () {
 
     win.loadFile('index.html');
 }
+
+ipcMain.handle('invoke-oracle', async (event, errorText) => {
+    const response = await askTheOrcale(errorText);
+    return response;
+})
 
 app.whenReady().then(() => {
     createWindow();

@@ -1,13 +1,16 @@
-async function invokeOracle() {
-    const input = document.getElementById('errorInput').value;
-    const output = document.getElementById('oracleOutput');
-    output.textContent = 'Consulting the stars...';
+document.getElementById("summonButton").addEventListener("click", invokeOracle);
 
-    try {
-        const response = await window.oracle.ask(input);
-        output.textContent = response;
-    } catch (err) {
-        output.textContent = 'The Oracle was disturbed...';
-        console.error('[Renderer] Error invoking oracle:', err);
-    }
+async function invokeOracle() {
+  const input = document.getElementById("errorInput").value;
+  const output = document.getElementById("oracleOutput");
+
+  output.textContent = "Consulting the stars...";
+
+  try {
+    const response = await window.oracle.ask(input);
+    output.textContent = response;
+  } catch (err) {
+    output.textContent = "⚠️ The Oracle was disturbed...";
+    console.error(err);
+  }
 }

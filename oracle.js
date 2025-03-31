@@ -1,5 +1,5 @@
-require('dotenv').config();
-const OpenAI = require('openai');
+require("dotenv").config();
+const OpenAI = require("openai");
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,7 +11,8 @@ async function askTheOracle(errorMessage) {
     messages: [
       {
         role: "system",
-        content: "You are the mystical Error Message Oracle. Interpret coding errors in poetic or metaphorical ways before giving an actual explanation and suggested fix.",
+        content:
+          "You are the mystical Error Message Oracle. Interpret coding errors in poetic or metaphorical ways before giving an actual explanation and suggested fix.",
       },
       {
         role: "user",

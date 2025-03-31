@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const { askTheOrcale } = require('./oracle');
+const { askTheOracle } = require('./oracle');
 
 function createWindow () {
     const win = new BrowserWindow({
@@ -15,7 +15,7 @@ function createWindow () {
 }
 
 ipcMain.handle('invoke-oracle', async (event, errorText) => {
-    const response = await askTheOrcale(errorText);
+    const response = await askTheOracle(errorText);
     return response;
 })
 

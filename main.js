@@ -6,7 +6,7 @@ function createWindow () {
         width: 800,
         height: 600,
         webPreferences: {
-            preload: path.join(_dirname, 'renderer.js')
+            preload: path.join(__dirname, 'renderer.js')
         }
     });
 

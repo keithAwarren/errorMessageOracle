@@ -13,7 +13,8 @@
     },
     "win": {
       "target": "nsis"
-    }
+    },
+    "publish": null
   },
   "scripts": {
     "start": "electron .",

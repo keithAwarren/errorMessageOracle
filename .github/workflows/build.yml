@@ -23,7 +23,7 @@ jobs:
         run: npm run dist
 
       - name: Upload artifact
-        uses: actions/upload-artifact@refs/tags/v2.3.1
+        uses: actions/upload-artifact@main
         with:
           name: errOracle-windows
           path: dist/*.exe

@@ -1,0 +1,18 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Electron
+dist/
+build/
+*.log
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Misc
+.env

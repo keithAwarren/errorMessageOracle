@@ -7,7 +7,9 @@ function createWindow () {
         width: 800,
         height: 600,
         webPreferences: {
-            preload: path.join(__dirname, 'renderer.js')
+            preload: path.join(__dirname, 'preload.js'),
+            contextIsolation: true,
+            nodeIntegration: false
         }
     });
 
@@ -15,9 +17,11 @@ function createWindow () {
 }
 
 ipcMain.handle('invoke-oracle', async (event, errorText) => {
+    console.log('[Main] Oracle was summoned with:', errorText);
     const response = await askTheOracle(errorText);
+    console.log('[Main] Oracle responds:', response);
     return response;
-})
+});
 
 app.whenReady().then(() => {
     createWindow();
@@ -29,4 +33,4 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
-})
+});

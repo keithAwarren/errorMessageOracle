@@ -27,7 +27,8 @@
   "description": "",
   "devDependencies": {
     "electron": "^35.1.2",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.0.12",
+    "electron-reload": "^2.0.0-alpha.1"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

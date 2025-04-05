@@ -2,7 +2,7 @@ const axios = require("axios");
 
 async function askTheOracle(errorMessage) {
   try {
-    const res = await axios.post("http://localhost:3000/oracle", {
+    const res = await axios.post("https://erroracle-backend.onrender.com/oracle", {
       errorText: errorMessage,
     });
     return res.data.message;

@@ -1,3 +1,19 @@
+const themeSwitch = document.getElementById("themeSwitch");
+const body = document.body;
+
+// Default to Twilight (dark mode)
+body.classList.add("theme-twilight");
+
+themeSwitch.addEventListener("change", () => {
+  if (themeSwitch.checked) {
+    body.classList.remove("theme-twilight");
+    body.classList.add("theme-dawnlight");
+  } else {
+    body.classList.remove("theme-dawnlight");
+    body.classList.add("theme-twilight");
+  }
+});
+
 // Listen for clicks on the "Summon Oracle" button
 document.getElementById("summonButton").addEventListener("click", invokeOracle);
 

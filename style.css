@@ -1,3 +1,37 @@
+/* Default: Twilight (Dark mode) */
+body.theme-twilight {
+  --bg-color: #121827;
+  --text-color: #e5e7eb;
+  --accent-color: #818cf8;
+  --card-bg: #1f2937;
+  --border-color: #334155;
+  --textarea-bg: #0f172a;
+  --textarea-text: #f1f5f9;
+  --header-color: #cbd5e1;
+  --subtext-color: #9ca3af;
+  --button-bg: #4338ca;
+  --button-hover-bg: #6366f1;
+  --output-text: #e0e7ff;
+  --footer-text: #6b7280;
+}
+
+/* Dawnlight (Light mode) */
+body.theme-dawnlight {
+  --bg-color: #f3f4f6;
+  --text-color: #1f2937;
+  --accent-color: #4f46e5;
+  --card-bg: #ffffff;
+  --border-color: #d1d5db;
+  --textarea-bg: #f9fafb;
+  --textarea-text: #1f2937;
+  --header-color: #111827;
+  --subtext-color: #6b7280;
+  --button-bg: #4f46e5;
+  --button-hover-bg: #6366f1;
+  --output-text: #374151;
+  --footer-text: #9ca3af;
+}
+
 /* Reset / base */
 * {
   box-sizing: border-box;
@@ -7,13 +41,15 @@
 
 body {
   font-family: "Helvetica Neue", system-ui, sans-serif;
-  background-color: #121827;
-  color: #e5e7eb;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   line-height: 1.6;
+  padding: 2rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  overflow-y: auto;
 }
 
 #app {
@@ -22,7 +58,7 @@ body {
   gap: 2rem;
   width: 100%;
   max-width: 600px;
-  background: #1f2937;
+  background: var(--card-bg);
   padding: 2rem 2.5rem;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
@@ -32,13 +68,13 @@ body {
 header h1 {
   font-size: 2.25rem;
   font-weight: 700;
-  color: #cbd5e1;
+  color: var(--header-color);
   text-align: center;
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #9ca3af;
+  color: var(--subtext-color);
   text-align: center;
   margin-top: 0.25rem;
 }
@@ -54,7 +90,7 @@ header h1 {
 label {
   font-weight: 600;
   font-size: 0.95rem;
-  color: #cbd5e1;
+  color: var(--header-color);
 }
 
 textarea {
@@ -62,18 +98,18 @@ textarea {
   padding: 1rem;
   font-family: monospace;
   font-size: 1rem;
-  border: 1px solid #334155;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   resize: vertical;
-  background: #0f172a;
-  color: #f1f5f9;
+  background: var(--textarea-bg);
+  color: var(--textarea-text);
   transition: border 0.2s ease;
   margin-bottom: 0;
 }
 
 textarea:focus {
   outline: none;
-  border-color: #818cf8;
+  border-color: var(--accent-color);
 }
 
 /* Button */
@@ -82,7 +118,7 @@ button {
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   font-weight: 600;
-  background-color: #4338ca;
+  background-color: var(--button-bg);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -93,22 +129,22 @@ button {
 }
 
 button:hover {
-  background-color: #6366f1;
+  background-color: var(--button-hover-bg);
 }
 
 /* Output Section */
 .output-section {
-  background: #0f172a;
+  background: var(--textarea-bg);
   padding: 1.25rem;
   border-radius: 8px;
-  border: 1px solid #334155;
+  border: 1px solid var(--border-color);
 }
 
 .output-section h2 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #cbd5e1;
-  margin-bottom: 0.5rem;
+  color: var(--header-color);
+  margin-bottom: 2rem;
 }
 
 @keyframes oracleReveal {
@@ -128,7 +164,7 @@ button:hover {
   white-space: pre-wrap;
   font-family: Georgia, serif;
   font-style: italic;
-  color: #e0e7ff;
+  color: var(--output-text);
 }
 
 .oracle-revealed {
@@ -139,6 +175,6 @@ button:hover {
 footer {
   text-align: center;
   font-size: 0.85rem;
-  color: #6b7280;
+  color: var(--footer-text);
   margin-top: 1rem;
 }

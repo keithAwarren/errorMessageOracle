@@ -110,11 +110,28 @@ button:hover {
   margin-bottom: 0.5rem;
 }
 
+@keyframes oracleReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 #oracleOutput {
   white-space: pre-wrap;
   font-family: serif;
   font-style: italic;
   color: #374151;
+}
+
+.oracle-revealed {
+  animation: oracleReveal 0.8s ease-out forwards;
 }
 
 /* Footer */

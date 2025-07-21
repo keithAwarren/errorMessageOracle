@@ -13,8 +13,8 @@ const { askTheOracle } = require("./oracle");
 // Create the main application window
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 650,
+    height: 700,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"), // Safely bridge frontend and backend
       contextIsolation: true, // Protect against untrusted scripts

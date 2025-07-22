@@ -5,20 +5,20 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-// Core Electron modules and Oracle interface
+// Summon the sacred modules of Electron and the Oracle's wisdom channel
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const { askTheOracle } = require("./oracle");
 
-// Create the main application window
+// Conjure the main window
 function createWindow() {
   const win = new BrowserWindow({
     width: 650,
     height: 800,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"), // Safely bridge frontend and backend
-      contextIsolation: true, // Protect against untrusted scripts
-      nodeIntegration: false, // Disable Node integration for frontend security
+      preload: path.join(__dirname, "preload.js"), // Safely bridge frontend and backend realms
+      contextIsolation: true, // Seal the chamber against intrusive spirits
+      nodeIntegration: false, // Deny Node's power to the frontend realm
     },
   });
 

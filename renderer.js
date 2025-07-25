@@ -34,12 +34,20 @@ async function invokeOracle() {
   try {
     const response = await window.oracle.ask(input);
 
+    // Split poetic + plain
+    const [poetic, ...rest] = response.trim().split(/\n\s*\n/);
+    const plain = rest.join("\n\n");
+
     // Reset and re-trigger animation cleanly for final message
     output.classList.remove("oracle-revealed");
     void output.offsetWidth;
-    output.textContent = response;
-    output.classList.add("oracle-revealed");
 
+    // Injected styled spans
+    output.innerHTML = `
+    <span class="oracle-poetic">${poetic}</span>
+    <span class="oracle-plain">${plain}</span>
+    `;
+    output.classList.add("oracle-revealed");
   } catch (err) {
     output.textContent = "⚠️ The Oracle was disturbed...";
     console.error(err);

@@ -22,21 +22,26 @@ document.getElementById("summonButton").addEventListener("click", invokeOracle);
 
 // Invoke the Oracle to interpret the user's error
 async function invokeOracle() {
-  const input = document.getElementById("errorInput").value; // Retrieve the mortal's plea
-  const output = document.getElementById("oracleOutput"); // Target area for the Oracle’s reply
+  const input = document.getElementById("errorInput").value;
+  const output = document.getElementById("oracleOutput");
 
-  output.classList.remove("oracle-revealed"); // Clear previous visions to begin new divination
-  output.textContent = "Consulting the stars..."; // Display a waiting message while the Oracle listens
+  // Clear and animate "Consulting the stars..."
+  output.classList.remove("oracle-revealed");
+  output.textContent = "Consulting the stars...";
+  void output.offsetWidth;
+  output.classList.add("oracle-revealed");
 
   try {
-    const response = await window.oracle.ask(input); // Ask the Oracle (through the preload bridge)
-    output.textContent = response; // Reveal the Oracle’s wisdom
+    const response = await window.oracle.ask(input);
 
-    // Trigger the mystical reveal animation
+    // Reset and re-trigger animation cleanly for final message
+    output.classList.remove("oracle-revealed");
     void output.offsetWidth;
+    output.textContent = response;
     output.classList.add("oracle-revealed");
+
   } catch (err) {
-    output.textContent = "⚠️ The Oracle was disturbed..."; // In case of errors, show a warning
-    console.error(err); // Log the disturbance for mortal inspection
+    output.textContent = "⚠️ The Oracle was disturbed...";
+    console.error(err);
   }
 }

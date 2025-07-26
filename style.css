@@ -94,11 +94,18 @@ label {
   color: var(--header-color);
 }
 
+textarea::placeholder {
+  line-height: 1.5;
+  font-family: monospace;
+}
+
 textarea {
   width: 100%;
+  min-height: 3.5rem;
   padding: 1rem;
   font-family: monospace;
   font-size: 1rem;
+  line-height: 1.5;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   resize: vertical;
@@ -106,6 +113,7 @@ textarea {
   color: var(--textarea-text);
   transition: border 0.2s ease;
   margin-bottom: 0;
+  box-sizing: border-box;
 }
 
 textarea:focus {

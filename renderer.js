@@ -17,6 +17,13 @@ themeSwitch.addEventListener("change", () => {
   }
 });
 
+const errorInput = document.getElementById("errorInput")
+
+errorInput.addEventListener("input", () => {
+  errorInput.style.height = "auto";
+  errorInput.style.height = errorInput.scrollHeight + "px"
+});
+
 // Listen for clicks on the "Summon Oracle" button
 document.getElementById("summonButton").addEventListener("click", invokeOracle);
 

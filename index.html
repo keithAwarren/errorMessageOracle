@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>errOracle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Fira+Code&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -26,10 +27,13 @@
             <section class="input-section">
                 <label for="errorInput">Your error message</label>
                 <textarea id="errorInput" placeholder="Paste your error here..."></textarea>
-                <button id="summonButton">Summon Oracle</button>
+                <div class="button-row">
+                    <button id="summonButton">Sumon Oracle</button>
+                    <button id="clearButton">Cleanse</button>
+                </div>
             </section>
 
-            <section class="output-section">
+            <section class="output-section hidden" id="oracleSection">
                 <h2>The Oracle Speaks:</h2>
                 <pre id="oracleOutput"></pre>
             </section>

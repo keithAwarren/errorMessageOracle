@@ -17,12 +17,15 @@ themeSwitch.addEventListener("change", () => {
   }
 });
 
-const errorInput = document.getElementById("errorInput")
+const errorInput = document.getElementById("errorInput");
 
 errorInput.addEventListener("input", () => {
   errorInput.style.height = "auto";
-  errorInput.style.height = errorInput.scrollHeight + "px"
+  errorInput.style.height = errorInput.scrollHeight + "px";
 });
+
+// Output section (initially hidden)
+const oracleSection = document.getElementById("oracleSection");
 
 // Listen for clicks on the "Summon Oracle" button
 document.getElementById("summonButton").addEventListener("click", invokeOracle);
@@ -31,6 +34,9 @@ document.getElementById("summonButton").addEventListener("click", invokeOracle);
 async function invokeOracle() {
   const input = document.getElementById("errorInput").value;
   const output = document.getElementById("oracleOutput");
+
+  // Show output section (if hidden)
+  oracleSection.classList.remove("hidden");
 
   // Clear and animate "Consulting the stars..."
   output.classList.remove("oracle-revealed");
@@ -60,3 +66,10 @@ async function invokeOracle() {
     console.error(err);
   }
 }
+
+// The cleansing
+document.getElementById("clearButton").addEventListener("click", () => {
+  errorInput.value = "";
+  errorInput.style.height = "auto";
+  oracleSection.classList.add("hidden");
+});

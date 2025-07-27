@@ -2,6 +2,16 @@
 const themeSwitch = document.getElementById("themeSwitch");
 const body = document.body;
 let emptySummonCount = 0; // Track how many times the Oracle is summoned without an offering
+let currentOracleAbort = null; // Track the current summoning process for cancellation
+
+const oracleWhispers = [
+  "Consulting the stars...",
+  "Peering beyond the veil...",
+  "Seeking truth in shadows...",
+  "Summoning ancient wisdom...",
+  "Channeling ethereal energy...",
+  "Divining cosmic patterns...",
+];
 
 // Default to Twilight (dark mode)
 body.classList.add("theme-twilight");
@@ -70,17 +80,31 @@ async function invokeOracle() {
 
   // Begin the consultation ritual
   output.classList.remove("oracle-revealed");
-  output.textContent = "Consulting the stars";
+  const randomWhisper =
+    oracleWhispers[Math.floor(Math.random() * oracleWhispers.length)];
+  output.textContent = randomWhisper;
+
+  // Conjure the spinnining
   const spinner = document.createElement("div");
   spinner.classList.add("spinner");
   output.appendChild(spinner);
+
+  // Disable the summoning button 
   summonButton.disabled = true;
   summonButton.textContent = "Summoning...";
+
+  // Retrigger reveal animation
   void output.offsetWidth;
   output.classList.add("oracle-revealed");
 
+  // Cancel any ongoing summon
+  if (currentOracleAbort) currentOracleAbort.abort();
+  currentOracleAbort = new AbortController();
+
   try {
-    const response = await window.oracle.ask(inputValue);
+    const response = await window.oracle.ask(inputValue, currentOracleAbort.signal);
+
+    if (currentOracleAbort.signal.aborted) return;
 
     // Clear the cosmic spinner
     const existingSpinner = output.querySelector(".spinner");
@@ -105,6 +129,8 @@ async function invokeOracle() {
     `;
     output.classList.add("oracle-revealed");
   } catch (err) {
+    if (err.name === "AbortError") return;
+
     // If the Oracle is unreachable
     const existingSpinner = output.querySelector(".spinner");
     if (existingSpinner) existingSpinner.remove();
@@ -123,4 +149,12 @@ document.getElementById("clearButton").addEventListener("click", () => {
   errorInput.style.height = "auto";
   oracleSection.classList.add("hidden");
   emptySummonCount = 0;
+
+  const summonButton = document.getElementById("summonButton");
+  summonButton.disabled = false;
+  summonButton.textContent = "Summon Oracle";
+
+  if (currentOracleAbort) {
+    currentOracleAbort.abort();
+  }
 });

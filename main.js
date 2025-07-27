@@ -14,7 +14,7 @@ const { askTheOracle } = require("./oracle");
 function createWindow() {
   const win = new BrowserWindow({
     width: 650,
-    height: 800,
+    height: 750,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"), // Safely bridge frontend and backend realms
       contextIsolation: true, // Seal the chamber against intrusive spirits

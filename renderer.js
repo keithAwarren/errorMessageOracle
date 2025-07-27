@@ -1,6 +1,7 @@
 // Bind the toggle switch to the mortal body
 const themeSwitch = document.getElementById("themeSwitch");
 const body = document.body;
+let emptySummonCount = 0;
 
 // Default to Twilight (dark mode)
 body.classList.add("theme-twilight");
@@ -32,8 +33,32 @@ document.getElementById("summonButton").addEventListener("click", invokeOracle);
 
 // Invoke the Oracle to interpret the user's error
 async function invokeOracle() {
-  const input = document.getElementById("errorInput").value;
+  const inputValue = errorInput.value.trim();
   const output = document.getElementById("oracleOutput");
+
+  // Guard clause for empty input
+  if (!inputValue) {
+    emptySummonCount++;
+
+    const output = document.getElementById("oracleOutput");
+    document.getElementById("oracleSection").classList.remove("hidden");
+
+    output.classList.remove("oracle-revealed");
+    void output.offsetWidth;
+
+    if (emptySummonCount >= 5) {
+      output.textContent = "DO NOT TEMPT ME, MORTAL";
+      emptySummonCount = 0;
+    } else {
+      output.textContent = "You must offer an error message to the Oracle.";
+    }
+
+    output.classList.add("oracle-revealed");
+
+    errorInput.classList.add("shake");
+    setTimeout(() => errorInput.classList.remove("shake"), 500);
+    return;
+  }
 
   // Show output section (if hidden)
   oracleSection.classList.remove("hidden");
@@ -45,7 +70,7 @@ async function invokeOracle() {
   output.classList.add("oracle-revealed");
 
   try {
-    const response = await window.oracle.ask(input);
+    const response = await window.oracle.ask(inputValue);
 
     // Split poetic + plain
     const [poetic, ...rest] = response.trim().split(/\n\s*\n/);
@@ -72,4 +97,5 @@ document.getElementById("clearButton").addEventListener("click", () => {
   errorInput.value = "";
   errorInput.style.height = "auto";
   oracleSection.classList.add("hidden");
+  emptySummonCount = 0;
 });

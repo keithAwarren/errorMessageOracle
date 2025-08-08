@@ -9,6 +9,7 @@
       "**/*"
     ],
     "mac": {
+      "icon": "assets/crystalBallPixel.png",
       "target": "dmg"
     },
     "win": {

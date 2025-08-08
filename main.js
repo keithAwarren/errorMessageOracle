@@ -6,15 +6,19 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Summon the sacred modules of Electron and the Oracle's wisdom channel
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, nativeImage } = require("electron");
 const path = require("path");
 const { askTheOracle } = require("./oracle");
+
+const iconPath = path.join(__dirname, "assets/crystalBallPixel.png");
+const icon = nativeImage.createFromPath(iconPath);
 
 // Conjure the main window
 function createWindow() {
   const win = new BrowserWindow({
     width: 650,
     height: 750,
+    icon,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"), // Safely bridge frontend and backend realms
       contextIsolation: true, // Seal the chamber against intrusive spirits
@@ -35,6 +39,8 @@ ipcMain.handle("invoke-oracle", async (event, errorText) => {
 
 // Initialize the temple when the app is ready
 app.whenReady().then(() => {
+  app.setName("errOracle");
+  app.dock.setIcon(icon); // Set Dock icon once
   createWindow();
 
   // On macOS, recreate a window when the dock icon is clicked and no windows are open
@@ -46,4 +52,8 @@ app.whenReady().then(() => {
 // Exit the temple when all windows are closed (except on macOS, where it lingers)
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled rejection:", reason);
 });

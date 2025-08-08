@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>errOracle</title>
+    <link rel="icon" href="assets/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Fira+Code&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -40,8 +41,23 @@
 
         <footer>
             <p>errOracle © 2025 • v1.0.0</p>
+            <button id="aboutButton" class="info-button">About</button>
         </footer>
 
+    </div>
+
+    <div id="aboutModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="closeModal" class="close-button">&times;</span>
+            <h2>About errOracle<h2>
+            <p><strong>Version: </strong> v1.0.0</p>
+            <p><strong>Author: </strong>Keith A. Warren</p>
+            <p>
+                errOracle is a mystical desktop app that interprets programming errors using poetic AI wisdom.<br />
+                Summon the Oracle by pasting your error and receive cryptic guidance in return.<br /><br />
+                And yes... A few hidden easter eggs await the curious.
+            </p>
+        </div>
     </div>
 
     <script src="renderer.js"></script>

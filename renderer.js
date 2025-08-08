@@ -158,3 +158,22 @@ document.getElementById("clearButton").addEventListener("click", () => {
     currentOracleAbort.abort();
   }
 });
+
+// Modal logic
+const aboutButton = document.getElementById("aboutButton");
+const aboutModal = document.getElementById("aboutModal");
+const closeModal = document.getElementById("closeModal");
+
+aboutButton.addEventListener("click", () => {
+  aboutModal.classList.remove("hidden");
+});
+
+closeModal.addEventListener("click", () => {
+  aboutModal.classList.add("hidden");
+});
+
+window.addEventListener("click", (event) => {
+  if (event.target === aboutModal) {
+    aboutModal.classList.add("hidden");
+  }
+});

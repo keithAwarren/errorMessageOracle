@@ -89,7 +89,7 @@ async function invokeOracle() {
   spinner.classList.add("spinner");
   output.appendChild(spinner);
 
-  // Disable the summoning button 
+  // Disable the summoning button
   summonButton.disabled = true;
   summonButton.textContent = "Summoning...";
 
@@ -102,7 +102,10 @@ async function invokeOracle() {
   currentOracleAbort = new AbortController();
 
   try {
-    const response = await window.oracle.ask(inputValue, currentOracleAbort.signal);
+    const response = await window.oracle.ask(
+      inputValue,
+      currentOracleAbort.signal
+    );
 
     if (currentOracleAbort.signal.aborted) return;
 
@@ -176,4 +179,17 @@ window.addEventListener("click", (event) => {
   if (event.target === aboutModal) {
     aboutModal.classList.add("hidden");
   }
+});
+
+// Boring Mode
+const boringButton = document.getElementById("boringModeButton");
+let isBoring = false;
+
+boringButton.addEventListener("click", () => {
+  isBoring = !isBoring;
+
+  document.body.classList.toggle("theme-boring", isBoring);
+  document.body.classList.toggle("theme-twilight", !isBoring);
+
+  boringButton.textContent = isBoring ? "Mystical Mode" : "Boring Mode";
 });

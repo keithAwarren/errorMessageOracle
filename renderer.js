@@ -49,11 +49,19 @@ async function invokeOracle() {
   const output = document.getElementById("oracleOutput");
   const summonButton = document.getElementById("summonButton");
 
-  // If the offering is empty, warn the summoner - or unleash the hidden wrath
+  // Empty input handling
   if (!inputValue) {
     emptySummonCount++;
 
     oracleSection.classList.remove("hidden");
+
+    // In boring mode: plain, no easter egg, no shake, no animations
+    if (isBoring) {
+      output.textContent = "Please enter an error message.";
+      return;
+    }
+
+    // Mystical mode: keep wrath + shake + reveal
     output.classList.remove("oracle-revealed");
     void output.offsetWidth;
 
@@ -65,37 +73,39 @@ async function invokeOracle() {
     }
 
     output.classList.add("oracle-revealed");
-
-    // Shake the input box for dramatic flair
     errorInput.classList.add("shake");
     setTimeout(() => errorInput.classList.remove("shake"), 500);
     return;
   }
 
-  // Reset the wrath counter for a prpoer offering
+  // Reset wrath counter on proper offering
   emptySummonCount = 0;
 
   // Reveal the Oracle's chamber
   oracleSection.classList.remove("hidden");
 
-  // Begin the consultation ritual
-  output.classList.remove("oracle-revealed");
-  const randomWhisper =
-    oracleWhispers[Math.floor(Math.random() * oracleWhispers.length)];
-  output.textContent = randomWhisper;
+  // Start loading state
+  if (isBoring) {
+    output.textContent = "Please wait...";
+  } else {
+    output.classList.remove("oracle-revealed");
+    const randomWhisper =
+      oracleWhispers[Math.floor(Math.random() * oracleWhispers.length)];
+    output.textContent = randomWhisper;
 
-  // Conjure the spinnining
-  const spinner = document.createElement("div");
-  spinner.classList.add("spinner");
-  output.appendChild(spinner);
+    // Spinner only in mystical mode
+    const spinner = document.createElement("div");
+    spinner.classList.add("spinner");
+    output.appendChild(spinner);
 
-  // Disable the summoning button
+    // Retrigger reveal animation
+    void output.offsetWidth;
+    output.classList.add("oracle-revealed");
+  }
+
+  // Disable the button while fetching
   summonButton.disabled = true;
-  summonButton.textContent = "Summoning...";
-
-  // Retrigger reveal animation
-  void output.offsetWidth;
-  output.classList.add("oracle-revealed");
+  summonButton.textContent = isBoring ? "Please Wait..." : "Summoning...";
 
   // Cancel any ongoing summon
   if (currentOracleAbort) currentOracleAbort.abort();
@@ -109,39 +119,43 @@ async function invokeOracle() {
 
     if (currentOracleAbort.signal.aborted) return;
 
-    // Clear the cosmic spinner
+    // Clear spinner if present (mystical only)
     const existingSpinner = output.querySelector(".spinner");
     if (existingSpinner) existingSpinner.remove();
 
-    // Restore invocation state
+    // Restore button
     summonButton.disabled = false;
-    summonButton.textContent = "Summon Oracle";
+    summonButton.textContent = isBoring ? "Submit" : "Summon Oracle";
 
-    // Seperate poetic verse from plain truths
+    // Separate poetic verse from plain truths
     const [poetic, ...rest] = response.trim().split(/\n\s*\n/);
     const plain = rest.join("\n\n");
 
-    // Animante the revelation
-    output.classList.remove("oracle-revealed");
-    void output.offsetWidth;
-
-    // Inject styled spans
-    output.innerHTML = `
-      <span class="oracle-poetic">${poetic}</span>
-      <span class="oracle-plain">${plain}</span>
-    `;
-    output.classList.add("oracle-revealed");
+    if (isBoring) {
+      // Boring mode: plain text only, no animations
+      output.textContent = plain || response.trim();
+    } else {
+      // Mystical mode: styled spans + reveal
+      output.classList.remove("oracle-revealed");
+      void output.offsetWidth;
+      output.innerHTML = `
+        <span class="oracle-poetic">${poetic}</span>
+        <span class="oracle-plain">${plain}</span>
+      `;
+      output.classList.add("oracle-revealed");
+    }
   } catch (err) {
     if (err.name === "AbortError") return;
 
-    // If the Oracle is unreachable
     const existingSpinner = output.querySelector(".spinner");
     if (existingSpinner) existingSpinner.remove();
 
     summonButton.disabled = false;
-    summonButton.textContent = "Summon Oracle";
+    summonButton.textContent = isBoring ? "Submit" : "Summon Oracle";
 
-    output.textContent = "⚠️ The Oracle was disturbed...";
+    output.textContent = isBoring
+      ? "An error occurred."
+      : "⚠️ The Oracle was disturbed...";
     console.error(err);
   }
 }
@@ -155,7 +169,7 @@ document.getElementById("clearButton").addEventListener("click", () => {
 
   const summonButton = document.getElementById("summonButton");
   summonButton.disabled = false;
-  summonButton.textContent = "Summon Oracle";
+  summonButton.textContent = isBoring ? "Submit" : "Summon Oracle";
 
   if (currentOracleAbort) {
     currentOracleAbort.abort();
@@ -192,4 +206,24 @@ boringButton.addEventListener("click", () => {
   document.body.classList.toggle("theme-twilight", !isBoring);
 
   boringButton.textContent = isBoring ? "Mystical Mode" : "Boring Mode";
+
+  document.getElementById("summonButton").textContent = isBoring
+    ? "Submit"
+    : "Summon Oracle";
+  document.getElementById("clearButton").textContent = isBoring
+    ? "Clear"
+    : "Cleanse";
+
+  const subtitleEl = document.querySelector(".subtitle");
+  if (subtitleEl) {
+    subtitleEl.textContent = isBoring
+      ? "Wow. Fun."
+      : "Speak your error, mortal...";
+  }
+
+  // Hide theme swtich in boring mode
+  const themeSwitchContainer = document.getElementById("themeSwitch").parentElement;
+  if (themeSwitchContainer) {
+    themeSwitchContainer.style.display = isBoring ? "none" : "block";
+  }
 });

@@ -9,6 +9,14 @@ if (process.env.NODE_ENV === "development") {
 const { app, BrowserWindow, ipcMain, nativeImage } = require("electron");
 const path = require("path");
 const { askTheOracle } = require("./oracle");
+const contextMenuMod = require('electron-context-menu');
+const contextMenu = contextMenuMod.default || contextMenuMod;
+
+contextMenu({
+  showSaveImageAs: false,
+  showCopyImage: false,
+  shouldShowMenu: (_event, params) => params.isEditable === true
+});
 
 const iconPath = path.join(__dirname, "assets/crystalBallPixel.png");
 const icon = nativeImage.createFromPath(iconPath);

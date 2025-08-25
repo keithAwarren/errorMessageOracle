@@ -17,4 +17,4 @@ Or, download the desktop app for the full experience.
 - Mystical + Boring modes
 - Poetic error interpretation
 - Real error explanations
-- Easter eggs (try the Konami Code!)
+- Easter eggs

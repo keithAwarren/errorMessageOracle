@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>errOracle – Web Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Fira+Code&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <div class="header-controls">
+        <div class="theme-toggle">
+          <label class="switch" for="themeSwitch" aria-label="Toggle light and dark theme">
+            <input type="checkbox" id="themeSwitch" role="switch" aria-checked="false" />
+            <span class="slider"></span>
+          </label>
+          <span class="theme-label"></span>
+        </div>
+
+        <button id="boringModeButton" class="boring-button" title="Engage Boredom Protocols" type="button">
+          Boring Mode
+        </button>
+      </div>
+
+      <h1>errOracle</h1>
+      <p class="subtitle">Speak your error, mortal...</p>
+    </header>
+
+    <main>
+      <section class="input-section">
+        <textarea id="errorInput" placeholder="Paste your error here..." aria-label="Error message input"></textarea>
+        <div class="button-row">
+          <button id="summonButton" type="button">Summon Oracle</button>
+          <button id="clearButton" type="button">Cleanse</button>
+        </div>
+      </section>
+
+      <section class="output-section hidden" id="oracleSection">
+        <h2>The Oracle Speaks:</h2>
+        <pre id="oracleOutput" role="status" aria-live="polite"></pre>
+      </section>
+    </main>
+
+    <footer>
+      <p>errOracle © 2025 • v1.0.0</p>
+      <button id="aboutButton" class="info-button" type="button">About</button>
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div id="aboutModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <div class="modal-content">
+      <button id="closeModal" class="close-button" aria-label="Close" type="button">&times;</button>
+      <h2 id="aboutTitle">About errOracle</h2>
+      <p><strong>Version: </strong> v1.0.0</p>
+      <p><strong>Author: </strong> Keith A. Warren</p>
+      <p>
+        errOracle is a mystical desktop app that interprets programming errors using poetic AI wisdom.<br />
+        Summon the Oracle by pasting your error and receive cryptic guidance in return.<br /><br />
+        And yes... A few hidden easter eggs await the curious.
+      </p>
+    </div>
+  </div>
+
+  <script src="renderer-web.js"></script>
+</body>
+</html>

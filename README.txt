@@ -1,13 +1,20 @@
-errOracle — Windows Installer
+# errOracle
 
-Thank you for summoning the Oracle.
+A mystical desktop app that interprets programming errors with poetic flair, 
+and then explains them in plain English.
 
-To install:
-1. Unzip this file
-2. Double-click “errOracle Setup 1.0.0.exe”
-3. If Windows says “Unknown Publisher,” click “More Info” → “Run Anyway”
+---
 
-This is an unsigned build, so your system may warn you. This is expected.
+## 🌐 Try It Online
 
-Built with ❤by Keith Warren
-https://github.com/keithAwarren/errorMessageOracle
+[![Try the Demo](https://img.shields.io/badge/Try%20Online%20Demo-purple?style=for-the-badge&logo=github)](https://<your-username>.github.io/<your-repo>/)
+
+Or, download the desktop app for the full experience.
+
+---
+
+## ✨ Features
+- Mystical + Boring modes
+- Poetic error interpretation
+- Real error explanations
+- Easter eggs (try the Konami Code!)

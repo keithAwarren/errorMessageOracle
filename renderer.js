@@ -248,3 +248,23 @@ boringButton.addEventListener("click", () => {
   if (header) header.style.display = isBoring ? "none" : "block";
   renderOutputFromState();
 });
+
+// --- Easter Egg: Konami Pulse (non-boring only) ---
+(() => {
+  const seq = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+  let buffer = [];
+  const titleEl = document.querySelector("header h1");
+  if (!titleEl) return;
+
+  window.addEventListener("keydown", (e) => {
+    buffer.push(e.key);
+    if (buffer.length > seq.length) buffer.shift();
+    if (seq.every((k, i) => buffer[i]?.toLowerCase() === k.toLowerCase())) {
+      if (!isBoring) {
+        titleEl.classList.add("konami-glow");
+        setTimeout(() => titleEl.classList.remove("konami-glow"), 6000);
+      }
+      buffer = [];
+    }
+  });
+})();

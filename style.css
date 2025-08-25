@@ -1,3 +1,5 @@
+/* THEME TOKENS */
+
 /* Default: Twilight (Dark mode) */
 body.theme-twilight {
   --bg-color: #121827;
@@ -32,7 +34,37 @@ body.theme-dawnlight {
   --footer-text: #9ca3af;
 }
 
-/* Reset / base */
+/* Boring Mode (flat, utilitarian) */
+body.theme-boring {
+  --bg-color: #fefefe;
+  --text-color: #111;
+  --accent-color: #777;
+  --card-bg: #ffffff;
+  --border-color: #ddd;
+  --textarea-bg: #ffffff;
+  --textarea-text: #111;
+  --header-color: #111;
+  --subtext-color: #444;
+  --button-bg: #ccc;
+  --button-hover-bg: #bbb;
+  --output-text: #111;
+  --footer-text: #444;
+
+  font-family: sans-serif !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Strip ALL animations in boring mode */
+body.theme-boring * {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* BASE & LAYOUT */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -65,7 +97,8 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 5px rgba(161, 154, 246, 0.3);
 }
 
-/* Header */
+/* HEADER & CONTROLS */
+
 header h1 {
   font-family: "Cinzel", serif;
   font-size: 2.25rem;
@@ -81,7 +114,7 @@ header h1 {
   margin-top: 0.25rem;
 }
 
-/* Container for both switches */
+/* Container for theme toggle (left) + mode button (right) */
 .header-controls {
   display: flex;
   justify-content: space-between;
@@ -90,7 +123,12 @@ header h1 {
   margin-bottom: 0.5rem;
 }
 
-/* Button for Boring Mode */
+/* Keep the Boring/Mystical Mode button aligned right */
+.header-controls .boring-button {
+  margin-left: auto;
+}
+
+/* Mode button styling */
 .boring-button {
   background-color: var(--button-bg);
   color: #fff;
@@ -101,57 +139,55 @@ header h1 {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
 .boring-button:hover {
   background-color: var(--button-hover-bg);
 }
 
-/* Boring Mode */
-body.theme-boring {
-  --bg-color: #fefefe;
-  --text-color: #111;
-  --accent-color: #777;
-  --card-bg: #ffffff;
-  --border-color: #ddd;
-  --textarea-bg: #ffffff;
-  --textarea-text: #111;
-  --header-color: #111;
-  --subtext-color: #444;
-  --button-bg: #ccc;
-  --button-hover-bg: #bbb;
-  --output-text: #111;
-  --footer-text: #444;
-
-  font-family: sans-serif !important;
-  animation: none !important;
-  transition: none !important;
+/* Theme toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 32px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #4f46e5, #818cf8);
+  border-radius: 32px;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 3px;
+  bottom: 3px;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #d1d5db);
+  border-radius: 50%;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.2),
+    inset 0 1px 3px rgba(255, 255, 255, 0.4);
+}
+input:checked + .slider {
+  background: linear-gradient(135deg, #818cf8, #4f46e5);
+}
+input:checked + .slider:before {
+  transform: translateX(28px);
 }
 
-/* Strip ALL animations */
-body.theme-boring * {
-  animation: none !important;
-  transition: none !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-}
-
-/* Basic boring button style */
-body.theme-boring button {
-  background: #ccc !important;
-  color: #000 !important;
-  font-family: sans-serif !important;
-  font-weight: normal !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  border: 1px solid #aaa !important;
-}
-
-/* Remove flair on hover */
-body.theme-boring button:hover {
-  background: #bbb !important;
-}
-
-/* Boring header and subtitle */
+/* Typography adjustments in boring mode */
 body.theme-boring h1,
 body.theme-boring h2,
 body.theme-boring .subtitle {
@@ -161,15 +197,8 @@ body.theme-boring .subtitle {
   color: #111 !important;
 }
 
-/* Oracle output becomes totally plain */
-body.theme-boring .oracle-poetic,
-body.theme-boring .oracle-plain {
-  font-style: normal !important;
-  font-family: monospace !important;
-  color: #111 !important;
-}
+/* INPUTS & BUTTONS */
 
-/* Input Section */
 .input-section {
   display: flex;
   flex-direction: column;
@@ -204,18 +233,12 @@ textarea {
   margin-bottom: 0;
   box-sizing: border-box;
 }
-
 textarea:focus {
   outline: none;
   border-color: var(--accent-color);
 }
 
-textarea,
-#oracleOutput {
-  font-family: "Fira Code", monospace;
-}
-
-/* Button */
+/* Global button style */
 button {
   align-self: flex-start;
   padding: 0.6rem 1.2rem;
@@ -230,9 +253,22 @@ button {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   margin-top: 0.5rem;
 }
-
 button:hover {
   background-color: var(--button-hover-bg);
+}
+
+/* Plain, squared buttons in boring mode */
+body.theme-boring button {
+  background: #ccc !important;
+  color: #000 !important;
+  font-family: sans-serif !important;
+  font-weight: normal !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: 1px solid #aaa !important;
+}
+body.theme-boring button:hover {
+  background: #bbb !important;
 }
 
 .button-row {
@@ -241,76 +277,30 @@ button:hover {
   gap: 1rem;
   margin-top: 0.5rem;
 }
-
 .button-row button {
   flex: 1;
 }
 
-/* Toggle Switch */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 32px;
-}
+/* OUTPUT / ORACLE SECTION */
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* Slider track */
-.slider {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, #4f46e5, #818cf8);
-  border-radius: 32px;
-  transition: background 0.4s ease, box-shadow 0.4s ease;
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-}
-
-/* Knob */
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 3px;
-  bottom: 3px;
-  background: radial-gradient(circle at 30% 30%, #ffffff, #d1d5db);
-  border-radius: 50%;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.2),
-    inset 0 1px 3px rgba(255, 255, 255, 0.4);
-}
-
-/* Active (checked) switch styles */
-input:checked + .slider {
-  background: linear-gradient(135deg, #818cf8, #4f46e5);
-}
-
-input:checked + .slider:before {
-  transform: translateX(28px);
-}
-
-/* Output Section */
 .output-section {
   background: var(--textarea-bg);
   padding: 1.25rem;
   border-radius: 8px;
   border: 1px solid var(--border-color);
 }
-
 .output-section h2 {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--header-color);
   margin-bottom: 2rem;
+}
+
+#oracleOutput {
+  white-space: pre-wrap;
+  font-family: Georgia, serif;
+  font-style: italic;
+  color: var(--output-text);
 }
 
 .oracle-poetic {
@@ -319,7 +309,6 @@ input:checked + .slider:before {
   opacity: 0.9;
   display: block;
 }
-
 .oracle-plain {
   font-family: "Fira Code", monospace;
   font-style: normal;
@@ -327,6 +316,16 @@ input:checked + .slider:before {
   margin-top: 1rem;
   line-height: 1.6;
 }
+
+/* In boring mode, make output totally plain */
+body.theme-boring .oracle-poetic,
+body.theme-boring .oracle-plain {
+  font-style: normal !important;
+  font-family: monospace !important;
+  color: #111 !important;
+}
+
+/* ANIMATIONS & EFFECTS */
 
 @keyframes oracleReveal {
   0% {
@@ -340,28 +339,8 @@ input:checked + .slider:before {
     filter: blur(0);
   }
 }
-
-#oracleOutput {
-  white-space: pre-wrap;
-  font-family: Georgia, serif;
-  font-style: italic;
-  color: var(--output-text);
-}
-
 .oracle-revealed {
   animation: oracleReveal 0.8s ease-out forwards;
-}
-
-.hidden {
-  display: none;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--footer-text);
-  margin-top: 1rem;
 }
 
 @keyframes shake {
@@ -381,7 +360,6 @@ footer {
     transform: translateX(0);
   }
 }
-
 .shake {
   animation: shake 0.3s ease;
 }
@@ -397,45 +375,18 @@ footer {
   margin-left: 0.5rem;
   vertical-align: middle;
 }
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Info Button */
-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  font-size: 0.85rem;
-  color: var(--footer-text);
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--border-color);
-  text-align: left;
+.hidden {
+  display: none;
 }
 
-/* Info Button */
-.info-button {
-  position: static;
-  font-size: 0.8rem;
-  padding: 0.4rem 0.6rem;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  background-color: var(--card-bg);
-  color: var(--text-color);
-  cursor: pointer;
-}
+/* MODAL */
 
-.info-button:hover {
-  background-color: var(--button-hover-bg);
-  color: #fff;
-}
-
-/* Modal Styles */
 .modal {
   display: flex;
   justify-content: center;
@@ -448,7 +399,6 @@ footer {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
 }
-
 .modal.hidden {
   display: none;
 }
@@ -464,7 +414,6 @@ footer {
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
   font-size: 0.95rem;
 }
-
 .close-button {
   position: absolute;
   top: 1.5rem;
@@ -474,15 +423,56 @@ footer {
   cursor: pointer;
 }
 
-/* Konami Pulse */
+/* FOOTER & ABOUT BUTTON */
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--footer-text);
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.info-button {
+  position: static;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+}
+.info-button:hover {
+  background-color: var(--button-hover-bg);
+  color: #fff;
+}
+
+/* KONAMI PULSE */
+
 .konami-glow {
   position: relative;
   text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
   animation: konamiPulse 1.5s ease-in-out infinite alternate;
 }
 @keyframes konamiPulse {
-  from { filter: drop-shadow(0 0 0 var(--accent-color)); transform: scale(1); }
-  to   { filter: drop-shadow(0 0 6px var(--accent-color)); transform: scale(1.02); }
+  from {
+    filter: drop-shadow(0 0 0 var(--accent-color));
+    transform: scale(1);
+  }
+  to {
+    filter: drop-shadow(0 0 6px var(--accent-color));
+    transform: scale(1.02);
+  }
 }
-
-body.theme-boring .konami-glow { text-shadow: none; animation: none; filter: none; transform:none; }
+body.theme-boring .konami-glow {
+  text-shadow: none;
+  animation: none;
+  filter: none;
+  transform: none;
+}
